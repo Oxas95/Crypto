@@ -1,3 +1,5 @@
+NOM=DEJESUS_Mathieu-BAZIN_Sarah 
+
 #options de compilation
 OPT = -lgmp
 
@@ -26,3 +28,13 @@ gmp:
 clean:
 	rm -f *.o main
 	rm -fr gmp-6.1.2
+	rm -fr $(NOM) $(NOM).zip
+	
+
+zip: clean
+	mkdir $(NOM)
+	cp *.c $(NOM)
+	cp *.h $(NOM)
+	cp Makefile $(NOM)
+	zip -r $(NOM).zip $(NOM)
+	rm -fr $(NOM)
