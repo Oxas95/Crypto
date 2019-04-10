@@ -1,4 +1,4 @@
-NOM=DEJESUS_Mathieu-BAZIN_Sarah 
+NOM=DEJESUS_Mathieu-BAZIN_Sarah
 
 #options de compilation
 OPT = -lgmp
