@@ -26,7 +26,7 @@ gmp:
 	geany /usr/include/x86_64-linux-gnu/gmp.h
 
 clean:
-	rm -f *.o main
+	rm -f *.o *.gch main
 	rm -fr gmp-6.1.2
 	rm -fr $(NOM) $(NOM).zip
 	
