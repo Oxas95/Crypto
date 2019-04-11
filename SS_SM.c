@@ -37,7 +37,7 @@ int* binary(const mpz_t value, int* sizeofBinary){
 	return tab;
 }
 
-void exponentiation(mpz_t r, mpz_t a, mpz_t n, mpz_t H){
+void exponentiation(mpz_t r, const mpz_t a, const mpz_t n, const mpz_t H){
 	int t;
 	int* h = binary(H, &t);
 	mpz_set(r, a);
