@@ -12,8 +12,8 @@ main: $(FIC_O)
 ex:
 	./main
 
-main.o: main.c
-	gcc -g -c main.c
+main.o: main.c jacobi.h
+	gcc -g -c main.c jacobi.h
 
 SS_SM.o: SS_SM.c SS_SM.h jacobi.h
 	gcc -g -c SS_SM.c SS_SM.h jacobi.h
