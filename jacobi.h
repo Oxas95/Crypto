@@ -5,11 +5,12 @@
 #include <stdbool.h>
 
 typedef struct {
+	int signe;
 	mpz_t a;
 	mpz_t n;
 } symbole;
 
-bool carreParfait(const mpz_t valeur);
+void inverse(symbole j);
 
 int jacobi(symbole j);
 

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <gmp.h>
-#include "jacobi.h"
+#include "SS_SM.h"
 
 //gmp_printf %Zd -> mpz_t type
 
@@ -27,16 +27,12 @@ int main(int argc, char** argv){
 	}
 	
 	mpz_t n, k;
-	mpz_init_set_str(n, argv[1], 0);
-	mpz_init_set_str(k, argv[2], 0);
+	mpz_init_set_str(n, argv[1], 10);
+	mpz_init_set_str(k, argv[2], 10);
 	
-	gmp_printf("%Zd, %Zd\n",n,k);
-	
-	if(carreParfait(n) == true) printf("vrai\n");
-	else printf("faux\n");
-	
-	if(carreParfait(k) == true) printf("vrai\n");
-	else printf("faux\n");
+	bool premier = Solovay_Strassen(n,k);
+	if(premier) printf("premier\n");
+	else 		printf("composé\n");
 	
 	mpz_clear(n);
 	mpz_clear(k);

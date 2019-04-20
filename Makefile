@@ -12,11 +12,11 @@ main: $(FIC_O)
 ex:
 	./main
 
-main.o: main.c jacobi.h
-	gcc -g -c main.c jacobi.h
+main.o: main.c SS_SM.h
+	gcc -g -c main.c
 
 SS_SM.o: SS_SM.c SS_SM.h jacobi.h
-	gcc -g -c SS_SM.c SS_SM.h jacobi.h
+	gcc -g -c SS_SM.c SS_SM.h
 
 jacobi.o: jacobi.c jacobi.h
 	gcc -g -c jacobi.c jacobi.h
