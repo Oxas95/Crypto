@@ -2,6 +2,7 @@
 #include "SS_SM.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int propriete5(symbole j, int pow);
 
@@ -15,9 +16,12 @@ void mpz_pgcd(mpz_t res, const mpz_t a, const mpz_t b){
 	
 	do{
 		mpz_mod(reste, tmp_a, tmp_b);
+		gmp_printf("%Zd = %Zd * x + %Zd\n",tmp_a, tmp_b, reste);
 		mpz_set(tmp_a,tmp_b);
 		mpz_set(tmp_b,reste);
-	}while(tmp_b);
+		sleep(4);
+		
+	}while(mpz_cmp_ui(tmp_b,0) != 0);
 	mpz_set(res,tmp_a);
 	
 	mpz_clear(reste);
@@ -57,7 +61,7 @@ void propriete3(symbole j){
 	mpz_init(mod);
 	
 	mpz_mod_ui(mod, j.a, 2);
-	while(mod == 0){
+	while(mpz_cmp_ui(mod,0) == 0){
 		mpz_div_ui(j.a, j.a, 2);
 		pow++;
 		mpz_mod_ui(mod, j.a, 2);

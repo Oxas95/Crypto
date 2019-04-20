@@ -89,7 +89,7 @@ bool Solovay_Strassen(mpz_t n, mpz_t k){
 	gmp_randseed_ui(alea, time(NULL));
 	
 	
-	for (; mpz_cmp(i,k) == -1; mpz_add_ui(i,i,1)){
+	for (; mpz_cmp(i,k) < 0; mpz_add_ui(i,i,1)){
 		mpz_urandomm(a,alea,n1);
 		
 		mpz_add_ui(a,a,2);
