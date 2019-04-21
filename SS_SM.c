@@ -45,9 +45,6 @@ int* binary(const mpz_t value, int* sizeofBinary){
 void exponentiation(mpz_t r, const mpz_t a, const mpz_t n, const mpz_t H){
 	int t;
 	int* h = binary(H, &t);
-	for (int i = 0; i < t; i++)
-		printf("%d",h[i]);
-	printf("\n");
 	
 	mpz_set(r, a);
 	for (int i = t - 1; i >= 0 ; i--){
@@ -65,50 +62,44 @@ void exponentiation(mpz_t r, const mpz_t a, const mpz_t n, const mpz_t H){
 
 //test de primalité de Solovay-Strassen
 
-bool Solovay_Strassen(mpz_t n, mpz_t k){
+bool Solovay_Strassen(const mpz_t n, const mpz_t k){
 	mpz_t a;
 	mpz_init(a);
 	mpz_t n1;
 	mpz_init_set(n1,n);
-	mpz_sub_ui(n1,n1,3);
+	mpz_sub_ui(n1,n1,3); //n-3
 	mpz_t expo;
 	mpz_init_set(expo,n);
 	mpz_sub_ui(expo,expo,1);
-	mpz_div_ui(expo,expo,2);
+	mpz_div_ui(expo,expo,2); // (n-1) / 2
 	mpz_t res;
 	mpz_init(res);
 	mpz_t i;
 	mpz_init_set_ui(i,0);
-	int r;
-	symbole j;
-	mpz_init(j.a);
-	mpz_init_set(j.n, n);
+	int r = 0;
 	
 	gmp_randstate_t alea;
 	gmp_randinit_mt(alea);
 	gmp_randseed_ui(alea, time(NULL));
 	
-	
 	for (; mpz_cmp(i,k) < 0; mpz_add_ui(i,i,1)){
+		printf("#");
 		mpz_urandomm(a,alea,n1);
-		
 		mpz_add_ui(a,a,2);
-		mpz_set(j.a, a);
 		
-		r = jacobi(j);
-		
+		r = jacobi(a,n);
+		printf("\n\njacobi donne %d\n",r);
 		exponentiation(res,a,n,expo);
 		if(r == 0 || mpz_cmp_ui(res,r) != 0) return false;
-		gmp_printf("%Zd\r",i);
+		
 	}
 	
 	mpz_clear(a);
 	mpz_clear(n1);
 	mpz_clear(expo);
-	mpz_clear(j.a);
-	mpz_clear(j.n);
 	mpz_clear(res);
 	mpz_clear(i);
+	gmp_randclear(alea);
 	
 	return true;
 }

@@ -11,6 +11,6 @@ int* binary(const mpz_t value, int* sizeofBinary);
 
 void exponentiation(mpz_t r, const mpz_t a, const mpz_t n, const mpz_t H);
 
-bool Solovay_Strassen(mpz_t n, mpz_t k);
+bool Solovay_Strassen(const mpz_t n, const mpz_t k);
 
 #endif //SS_SM_h
