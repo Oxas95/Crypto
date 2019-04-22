@@ -5,11 +5,14 @@
 #include <gmp.h>
 #include "jacobi.h"
 
-int* binary(const mpz_t value, int* sizeofBinary);
+//conversion mpz_t dans un tableau de booleen, bit de poids faible en 0
+bool* binary(const mpz_t value, int* sizeofBinary);
 
-//test de primalité de Solovay-Strassen
+//algorithme square and multiply
 
 void exponentiation(mpz_t r, const mpz_t a, const mpz_t n, const mpz_t H);
+
+//test de primalité de Solovay-Strassen
 
 bool Solovay_Strassen(const mpz_t n, const mpz_t k);
 

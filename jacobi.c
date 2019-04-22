@@ -74,9 +74,10 @@ int propriete5(mpz_t n, int pow){
 	mpz_mod_ui(mod,n,8);
 	
 	if(mpz_cmp_ui(mod,1) == 0) ret = 1;
-	if(mpz_cmp_ui(mod,7) == 0) ret = 1;
-	if(mpz_cmp_ui(mod,3) == 0) ret = -1;
-	if(mpz_cmp_ui(mod,5) == 0) ret = -1;
+	else if(mpz_cmp_ui(mod,7) == 0) ret = 1;
+	else if(mpz_cmp_ui(mod,3) == 0) ret = -1;
+	else if(mpz_cmp_ui(mod,5) == 0) ret = -1;
+	else printf("erreur propriété 5");
 	if(ret == -1) for (int i = 0; i < pow - 1; i++) ret *= -1;
 	mpz_clear(mod);
 	
@@ -115,18 +116,19 @@ void propriete6(mpz_t a, mpz_t n, int *signe){
 	
 }
 
-int jacobi(mpz_t a, const mpz_t n){
+int jacobi(const mpz_t a, const mpz_t n){
 	mpz_t tmp_n;
+	mpz_t tmp_a;
 	mpz_init_set(tmp_n,n);
-	printf("algo jacobi :\n");
+	mpz_init_set(tmp_a,a);
 	int signe = 1;
 	while(1){
-		//printf(".");
-		gmp_printf("%Zd/%Zd, signe : %d\n",a,tmp_n,signe);
-		if(mpz_cmp(a,tmp_n) < 0) propriete6(a,tmp_n,&signe);
-		propriete1(a,tmp_n);
-		propriete3(a,tmp_n,&signe);
-		if(propriete4(a)) 				{mpz_clear(tmp_n); return signe;}
-		if (propriete2(a,tmp_n) == 0) 	{mpz_clear(tmp_n); return 0;}
+		propriete3(tmp_a,tmp_n,&signe);
+		
+		if(propriete4(tmp_a))				{mpz_clear(tmp_n); mpz_clear(tmp_a); return signe;}
+		if (propriete2(tmp_a,tmp_n) == 0) 	{mpz_clear(tmp_n); mpz_clear(tmp_a); return 0;}
+		
+		if(mpz_cmp(tmp_a,tmp_n) < 0) propriete6(tmp_a,tmp_n,&signe);
+		propriete1(tmp_a,tmp_n);
 	}
 }

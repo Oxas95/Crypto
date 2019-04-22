@@ -11,11 +11,10 @@ Pour installer la bibliothèque dans le répertoire par default "/usr/local" :
 
 
 "make" ou "make main" pour compiler
-"make test" pour tester plusieurs nombres
 "make clean" pour supprimer les fichiers de compilation et le dossier gmp-6.1.2 décompréssé
 
 l'exécutable se nomme "main"
 
-//pour l'instant ça ne marche pas
+pour tester si un nombre est premier, le programme doit être exécuté de la façcon suivante :
 "./main <nombre à tester> <nombre d'itérations>"
 

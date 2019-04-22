@@ -8,9 +8,10 @@
 //algorithme d'exponentiation rapide (square and multiply)
 
 //ajoute "value" au début du tableau "tab" et ajoute 1 à sa variable taille "size" associé
-int* add_value_tab(int* tab, int* size, int value){
+bool* add_value_tab(bool* tab, int* size, bool value){
 	*size += 1;
-	int* copie = malloc((*size) * sizeof(int)), i;
+	bool* copie = malloc((*size) * sizeof(bool));
+	int i;
 	for (i = 0; i < *size - 1; i++){
 		copie[i] = tab[i];
 	}
@@ -21,8 +22,8 @@ int* add_value_tab(int* tab, int* size, int value){
 
 
 //convertis un mpz_t en binaire dans un tableau d'entiers
-int* binary(const mpz_t value, int* sizeofBinary){
-	int* tab = NULL; 									//tableau contenant la conversion en binaire
+bool* binary(const mpz_t value, int* sizeofBinary){
+	bool* tab = NULL; 									//tableau contenant la conversion en binaire
 	*sizeofBinary = 0;
 	mpz_t mpz_reste; 									//reste de type mpz_t
 	int reste;       									//reste de type int
@@ -44,10 +45,10 @@ int* binary(const mpz_t value, int* sizeofBinary){
 
 void exponentiation(mpz_t r, const mpz_t a, const mpz_t n, const mpz_t H){
 	int t;
-	int* h = binary(H, &t);
+	bool* h = binary(H, &t);
 	
 	mpz_set(r, a);
-	for (int i = t - 1; i >= 0 ; i--){
+	for (int i = t - 2; i >= 0 ; i--){
 		mpz_mul(r, r, r);
 		mpz_mod(r, r, n);
 		if(h[i]){
@@ -81,17 +82,18 @@ bool Solovay_Strassen(const mpz_t n, const mpz_t k){
 	gmp_randstate_t alea;
 	gmp_randinit_mt(alea);
 	gmp_randseed_ui(alea, time(NULL));
-	
 	for (; mpz_cmp(i,k) < 0; mpz_add_ui(i,i,1)){
-		printf("#");
 		mpz_urandomm(a,alea,n1);
 		mpz_add_ui(a,a,2);
-		
 		r = jacobi(a,n);
-		printf("\n\njacobi donne %d\n",r);
-		exponentiation(res,a,n,expo);
-		if(r == 0 || mpz_cmp_ui(res,r) != 0) return false;
 		
+		exponentiation(res,a,n,expo);
+		mpz_mod(res,res,n);
+		
+		if(r == 0) return false;
+		if(r == -1) mpz_sub(res, res, n);
+		if (mpz_cmp_si(res,r) != 0) return false;
+		gmp_printf("%Zd\n",i);
 	}
 	
 	mpz_clear(a);
@@ -100,7 +102,6 @@ bool Solovay_Strassen(const mpz_t n, const mpz_t k){
 	mpz_clear(res);
 	mpz_clear(i);
 	gmp_randclear(alea);
-	
 	return true;
 }
 
